@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import Bandit from '../objects/Bandit';
 
 export default class Demo extends Phaser.Scene {
   constructor() {
@@ -6,19 +7,17 @@ export default class Demo extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('logo', 'assets/phaser3-logo.png');
+    this.load.image('logo', 'assets/sample1.png');
+    this.load.image('Bandit', 'assets/Axe_Bandit.png');
+    // this.load.spritesheet('bandit','assets/Axe_Bandit.png', {
+    //   frameWidth: 80,
+    //   frameHeight: 80
+    // });
   }
 
   create() {
-    const logo = this.add.image(400, 70, 'logo');
-
-    this.tweens.add({
-      targets: logo,
-      y: 350,
-      duration: 1500,
-      ease: 'Sine.inOut',
-      yoyo: true,
-      repeat: -1
-    });
+    this.add.image(400, 250, 'logo');
+    // this.add.image(450, 400, 'bandit');
+    this.add.existing(new Bandit(this, 450, 400));
   }
 }
