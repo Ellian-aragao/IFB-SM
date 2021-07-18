@@ -2,22 +2,25 @@ import Phaser from 'phaser';
 import Bandit from '../objects/Bandit';
 
 export default class Demo extends Phaser.Scene {
+  private bandit: Bandit;
+  private cursorKeysPressed: Phaser.Types.Input.Keyboard.CursorKeys;
+  
   constructor() {
     super('GameScene');
   }
 
   preload() {
     this.load.image('logo', 'assets/sample1.png');
-    this.load.image('Bandit', 'assets/Axe_Bandit.png');
-    // this.load.spritesheet('bandit','assets/Axe_Bandit.png', {
-    //   frameWidth: 80,
-    //   frameHeight: 80
-    // });
+    Bandit.preload(this);
+    this.cursorKeysPressed = this.input.keyboard.createCursorKeys();
   }
 
   create() {
     this.add.image(400, 250, 'logo');
-    // this.add.image(450, 400, 'bandit');
-    this.add.existing(new Bandit(this, 450, 400));
+    this.bandit = this.add.existing(new Bandit(this, 450, 400));
+  }
+
+  update(): void {
+    this.bandit.move(this.cursorKeysPressed);
   }
 }
