@@ -1,8 +1,8 @@
-import { Scene } from 'phaser';
+import { Scene } from "phaser";
 
 export default class Bandit extends Phaser.GameObjects.Sprite {
-  static readonly bandit = 'Bandit';
-  static readonly srcImage = '/assets/axe_bandit_run.png';
+  static readonly bandit = "Bandit";
+  static readonly srcImage = "/assets/axe_bandit_run.png";
   static readonly move = 8;
 
   constructor(scene: Scene, x: number, y: number) {
@@ -11,27 +11,31 @@ export default class Bandit extends Phaser.GameObjects.Sprite {
     this.setPosition(x, y);
   }
 
-  static preload(scene: Scene): void {
+  private static animation(scene: Scene) {
+    scene.anims.create({
+      key: "run",
+      frames: scene.anims.generateFrameNumbers(this.bandit, {
+        frames: [0, 1, 2, 3, 4, 5, 6],
+      }),
+      frameRate: 8,
+      repeat: -1,
+    });
+  }
+
+  static preload(scene: Scene): string {
     scene.load.spritesheet(Bandit.bandit, Bandit.srcImage, {
       frameWidth: 80,
       frameHeight: 80,
     });
 
-    scene.anims.create({
-      key: 'walk',
-      frames: scene.anims.generateFrameNumbers('bandit_walk', {
-        frames: [1, 2, 3, 4, 5, 6, 7, 8],
-      }),
-      frameRate: 10,
-      duration: 1000,
-      repeat: -1,
-    });
+    this.animation(scene);
+    return Bandit.bandit;
   }
 
   move(keypressed: Phaser.Types.Input.Keyboard.CursorKeys): void {
     if (keypressed.up.isDown) {
-      console.log('up');
-      
+      console.log("up");
+
       this.keyUp();
     }
     if (keypressed.left.isDown) {
@@ -46,8 +50,8 @@ export default class Bandit extends Phaser.GameObjects.Sprite {
   }
 
   keyUp(): void {
-    this.anims.play('walk');
-    this.scene.anims.play('walk', this);
+    this.anims.play("walk");
+    this.scene.anims.play("walk", this);
     // this.y -= Bandit.move;
   }
   keyLeft(): void {
