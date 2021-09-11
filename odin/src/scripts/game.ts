@@ -1,4 +1,5 @@
 import 'phaser';
+import BattleScene from './scenes/battlescene';
 import BootScene from './scenes/bootscene';
 import WorldScene from './scenes/wordscene';
 
@@ -15,11 +16,11 @@ const config = {
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT,
   },
-  scene: [BootScene, WorldScene],
+  scene: [BootScene, WorldScene, BattleScene],
   physics: {
     default: 'arcade',
     arcade: {
-      debug: false,
+      debug: true,
     },
   },
 };

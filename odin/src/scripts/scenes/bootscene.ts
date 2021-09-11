@@ -1,3 +1,4 @@
+import Enemy from "../objects/enemy";
 import Player from "../objects/player";
 import WorldScene from "./wordscene";
 
@@ -12,10 +13,7 @@ export default class BootScene extends Phaser.Scene {
     this.load.tilemapTiledJSON('map', 'assets/map/map.json');
 
     this.load.spritesheet(Player.key, Player.texture, Player.frames);
-    this.load.spritesheet('enemies', 'assets/enemies.png', {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
+    this.load.spritesheet(Enemy.key, Enemy.texture, Enemy.frames);
 
     this.load.image('background', 'assets/ground.png');
   }

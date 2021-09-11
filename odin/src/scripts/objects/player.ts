@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import SpriteUser from './SpriteUser';
 
 export default class Player extends Phaser.GameObjects.Sprite {
   static readonly key = 'player';
@@ -14,7 +15,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
   private readonly animations: Phaser.Types.Animations.Animation[] = [
     {
       key: 'down',
-      frames: this.anims.generateFrameNumbers('player', {
+      frames: this.anims.generateFrameNumbers(Player.key, {
         frames: [0, 1, 0, 2],
       }),
       frameRate: 10,
@@ -22,7 +23,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     },
     {
       key: 'right',
-      frames: this.anims.generateFrameNumbers('player', {
+      frames: this.anims.generateFrameNumbers(Player.key, {
         frames: [3, 4, 3, 5],
       }),
       frameRate: 10,
@@ -30,7 +31,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     },
     {
       key: 'left',
-      frames: this.anims.generateFrameNumbers('player', {
+      frames: this.anims.generateFrameNumbers(Player.key, {
         frames: [8, 7, 8, 6],
       }),
       frameRate: 10,
@@ -38,7 +39,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
     },
     {
       key: 'up',
-      frames: this.anims.generateFrameNumbers('player', {
+      frames: this.anims.generateFrameNumbers(Player.key, {
         frames: [9, 10, 9, 11],
       }),
       frameRate: 10,
@@ -48,12 +49,10 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
   constructor(public scene: Scene, x: number, y: number) {
     super(scene, x, y, Player.texture);
-    this.setTexture(Player.texture);
-    this.setPosition(x, y);
   }
 
   create() {
-    this.player = this.scene.physics.add.sprite(40, 40, 'player', 0);
+    this.player = this.scene.physics.add.sprite(this.x, this.y, Player.key, 0);
     this.player.setCollideWorldBounds(true);
     this.animations.forEach((anims) => this.scene.anims.create(anims));
     this.cursors = this.scene.input.keyboard.createCursorKeys();
